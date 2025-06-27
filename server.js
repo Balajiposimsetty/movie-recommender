@@ -1,22 +1,29 @@
 const express = require('express');
-const { getAllMovies, getRecommendationsByGenre } = require('./db');
+const {
+  initializeDB,
+  getAllMovies,
+  getRecommendationsByGenre
+} = require('./db');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(express.static('public')); // Assuming your index.html is in /public
+app.use(express.static('public')); // or use actual folder name
 
-app.get('/api/movies', (req, res) => {
+app.get('/api/movies', async (req, res) => {
   const genre = req.query.genre;
-  if (genre) {
-    const movies = getRecommendationsByGenre(genre);
+  try {
+    const movies = genre
+      ? await getRecommendationsByGenre(genre)
+      : await getAllMovies();
     res.json(movies);
-  } else {
-    const movies = getAllMovies();
-    res.json(movies);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+initializeDB().then(() => {
+  app.listen(port, () => {
+    console.log(`Server running on http://localhost:${port}`);
+  });
 });

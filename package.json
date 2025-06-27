@@ -9,8 +9,8 @@
   "author": "Your Name",
   "license": "ISC",
   "dependencies": {
-    "better-sqlite3": "^12.1.1",
     "express": "^4.18.2",
-    "mysql2": "^3.6.0"
+    "mysql2": "^3.6.0",
+    "sqlite": "^5.1.1"
   }
 }
