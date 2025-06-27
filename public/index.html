@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Movie Recommender</title>
+</head>
+<body>
+  <h2>Movie Recommender</h2>
+
+  Genre: <input id="genre"><br>
+  Actor: <input id="actor"><br>
+  Director: <input id="director"><br>
+  Liked Movies : <input id="liked"><br>
+  <button onclick="searchMovies()">Search</button>
+
+  <table id="resultsTable" border="1">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Genre</th>
+        <th>Director</th>
+        <th>Actors</th>
+        <th>Rating</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script src="script.js"></script>
+</body>
+</html>
