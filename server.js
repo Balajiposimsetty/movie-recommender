@@ -72,6 +72,7 @@ app.get('/search', (req, res) => {
           params.push('%' + d + '%');
         });
 
+
         sql += likeParts.join(" OR ");
         sql += ")";
 
