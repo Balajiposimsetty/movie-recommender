@@ -1,10 +1,22 @@
-const mysql = require('mysql2');
+// db.js
+const sqlite3 = require('sqlite3').verbose();
+const path = require('path');
 
-const pool = mysql.createPool({
-  host: 'localhost',
-  user: 'root',        // change if your username is different
-  password: 'root',        // set your MySQL password if needed
-  database: 'movie_db'
+// Create database file or open existing one
+const dbPath = path.resolve(__dirname, 'movies.db');
+const db = new sqlite3.Database(dbPath, (err) => {
+  if (err) {
+    console.error('Error opening SQLite database', err.message);
+  } else {
+    console.log('✅ Connected to SQLite database.');
+    // Create table if it doesn't exist
+    db.run(`CREATE TABLE IF NOT EXISTS movies (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      title TEXT NOT NULL,
+      genre TEXT,
+      rating REAL
+    )`);
+  }
 });
 
-module.exports = pool.promise();
+module.exports = db;
